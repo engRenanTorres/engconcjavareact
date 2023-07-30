@@ -81,6 +81,88 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.13.4</version>
+				<executions>
+					<!-- Installing node and npm-->
+					<execution>
+						<id>Install node and npm</id>
+						<goals>
+							<goal>
+								install-node-and-npm
+							</goal>
+						</goals>
+						<phase>
+							generate-resources
+						</phase>
+						<configuration>
+							<nodeVersion>
+								v18.16.0
+							</nodeVersion>
+							<npmVersion>9.6.7</npmVersion>
+						</configuration>
+					</execution>
+					<!-- Running npm install -->
+					<execution>
+						<id>npm install</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<phase>
+							generate-resources
+						</phase>
+						<configuration>
+							<arguments>install</arguments>
+						</configuration>
+					</execution>
+
+					<!-- build frontend deploy -->
+					<execution>
+						<id>build frontend</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<arguments>run build</arguments>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<nodeVersion>
+						v18.16.0
+					</nodeVersion>
+					<workingDirectory>
+						src/main/frontend
+					</workingDirectory>
+				</configuration>
+			</plugin>
+			<!-- copy react build to spring -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.3.1</version>
+				<executions>
+					<execution>
+						<id>Copy JavaScript app into SpringBoot</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/classes/static</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/frontend/dist</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 

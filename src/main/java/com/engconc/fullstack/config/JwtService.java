@@ -70,8 +70,7 @@ public class JwtService {
   }
 
   private Key getSignKey() {
-    final String key = SECRET_KEY != null ? SECRET_KEY : "4574872354";
-    byte[] keyBytes = Decoders.BASE64.decode(key);
+    final byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
     return Keys.hmacShaKeyFor(keyBytes);
   }
 }

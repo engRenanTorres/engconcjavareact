@@ -17,6 +17,12 @@ spring:
           format-sql: true
       database: postgresql
       database-platform: org.hibernate.dialect.PostgreSQLDialect
+server:
+  port: 3001
+VITE_BACKEND_DEV: http://localhost:3001
+meta:
+  env:
+    VITE_BACKEND_DEV: http://localhost:3001
 
 
 
